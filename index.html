@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catálogo de Fotos | Encaixe</title>
+  <style>
+    :root {
+      --azul: #0B2D5B;
+      --azul-2: #163D73;
+      --amarelo: #FFCC00;
+      --cinza: #f5f7fb;
+      --borda: #e6eaf0;
+      --texto: #111827;
+      --muted: #6b7280;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--cinza);
+      color: var(--texto);
+    }
+    header {
+      background: linear-gradient(135deg, var(--azul), #061a36);
+      color: #fff;
+      padding: 28px 18px 34px;
+      text-align: center;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--amarelo);
+      color: var(--azul);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.05; }
+    .subtitle { margin: 10px auto 0; max-width: 760px; color: #dbe7ff; font-size: 15px; }
+    main { max-width: 1240px; margin: -24px auto 48px; padding: 0 18px; }
+    .panel {
+      background: #fff;
+      border: 1px solid var(--borda);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(11,45,91,.12);
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(180px, 280px);
+      gap: 12px;
+      align-items: center;
+    }
+    .search-wrap, .select-wrap { position: relative; }
+    input, select {
+      width: 100%;
+      height: 48px;
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--texto);
+      font-size: 15px;
+      outline: none;
+    }
+    input { padding: 0 15px 0 44px; }
+    select { padding: 0 14px; }
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 18px;
+    }
+    .meta {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,.06);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .photo-box {
+      height: 220px;
+      background: #fbfcff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      border-bottom: 1px solid #f0f2f6;
+    }
+    .photo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .content { padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .product-name {
+      font-size: 14px;
+      line-height: 1.25;
+      font-weight: 800;
+      min-height: 36px;
+    }
+    .category {
+      display: inline-flex;
+      align-self: flex-start;
+      font-size: 12px;
+      color: var(--azul);
+      background: #eaf1fb;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .btns { display: grid; gap: 8px; margin-top: auto; }
+    a.btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+    .primary { background: var(--azul); color: #fff; }
+    .primary:hover { background: var(--azul-2); }
+    .secondary { background: #fff; color: var(--azul); border: 1px solid var(--borda); }
+    .secondary:hover { border-color: var(--azul); }
+    .state {
+      padding: 36px;
+      text-align: center;
+      color: var(--muted);
+      background: #fff;
+      border: 1px dashed var(--borda);
+      border-radius: 16px;
+    }
+    footer { text-align: center; color: var(--muted); font-size: 13px; padding: 0 18px 34px; }
+    @media (max-width: 1050px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 760px) {
+      main { margin-top: -18px; }
+      .controls { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .photo-box { height: 170px; }
+      .content { padding: 12px; }
+      .product-name { font-size: 13px; min-height: 48px; }
+      header { padding-top: 22px; }
+      .panel { padding: 14px; }
+    }
+    @media (max-width: 430px) {
+      .grid { grid-template-columns: 1fr; }
+      .photo-box { height: 230px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand"><span class="brand-mark">E</span><span>Encaixe Componentes</span></div>
+    <h1>Catálogo de Fotos</h1>
+    <p class="subtitle">Busca interna para vendedores encontrarem, visualizarem e baixarem fotos dos produtos.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="controls">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="search" placeholder="Pesquisar produto..." autocomplete="off" />
+        </div>
+        <div class="select-wrap">
+          <select id="categorySelect">
+            <option value="">Todas as categorias</option>
+          </select>
+        </div>
+      </div>
+      <div class="meta">
+        <span id="countText">Carregando produtos...</span>
+        <span>Fonte: Google Sheets + Google Drive</span>
+      </div>
+    </section>
+
+    <section id="catalog" class="grid"></section>
+    <div id="emptyState" class="state" style="display:none;">Nenhum produto encontrado.</div>
+  </main>
+
+  <footer>Catálogo interno Encaixe • Atualizado automaticamente pela planilha publicada.</footer>
+
+  <script>
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm473znFyIRUn-6ge-W2FALIro2XCrc02K7v9vOx1zkk0wh_jyT4gqCGS-GDFgTOAy-l0uc-Rxcc7N/pub?gid=0&single=true&output=csv";
+
+    const catalogEl = document.getElementById("catalog");
+    const emptyStateEl = document.getElementById("emptyState");
+    const searchInput = document.getElementById("searchInput");
+    const categorySelect = document.getElementById("categorySelect");
+    const countText = document.getElementById("countText");
+
+    let products = [];
+
+    function parseCSV(text) {
+      const rows = [];
+      let current = [];
+      let value = "";
+      let insideQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+        if (char === '"' && insideQuotes && next === '"') {
+          value += '"';
+          i++;
+        } else if (char === '"') {
+          insideQuotes = !insideQuotes;
+        } else if (char === ',' && !insideQuotes) {
+          current.push(value);
+          value = "";
+        } else if ((char === '\n' || char === '\r') && !insideQuotes) {
+          if (char === '\r' && next === '\n') i++;
+          current.push(value);
+          rows.push(current);
+          current = [];
+          value = "";
+        } else {
+          value += char;
+        }
+      }
+      if (value || current.length) {
+        current.push(value);
+        rows.push(current);
+      }
+      return rows.filter(row => row.some(cell => String(cell).trim() !== ""));
+    }
+
+    function normalize(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function setupCategories() {
+      const categories = [...new Set(products.map(p => p.categoria).filter(Boolean))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+      categorySelect.innerHTML = '<option value="">Todas as categorias</option>' +
+        categories.map(cat => `<option value="${escapeHTML(cat)}">${escapeHTML(cat)}</option>`).join("");
+    }
+
+    function render() {
+      const term = normalize(searchInput.value);
+      const category = categorySelect.value;
+
+      const filtered = products.filter(product => {
+        const matchesTerm = !term || normalize(product.produto).includes(term) || normalize(product.categoria).includes(term);
+        const matchesCategory = !category || product.categoria === category;
+        return matchesTerm && matchesCategory;
+      });
+
+      countText.textContent = `${filtered.length} de ${products.length} produtos encontrados`;
+      emptyStateEl.style.display = filtered.length ? "none" : "block";
+
+      catalogEl.innerHTML = filtered.map(product => `
+        <article class="card">
+          <div class="photo-box">
+            <img src="${escapeHTML(product.foto)}" alt="${escapeHTML(product.produto)}" loading="lazy" onerror="this.style.display='none'" />
+          </div>
+          <div class="content">
+            <div class="product-name">${escapeHTML(product.produto)}</div>
+            <div class="category">${escapeHTML(product.categoria)}</div>
+            <div class="btns">
+              <a class="btn primary" href="${escapeHTML(product.download || product.foto)}" target="_blank" rel="noopener">⬇ Baixar Foto</a>
+              <a class="btn secondary" href="${escapeHTML(product.foto)}" target="_blank" rel="noopener">Visualizar</a>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    async function loadProducts() {
+      try {
+        const response = await fetch(CSV_URL + "&cacheBust=" + Date.now());
+        if (!response.ok) throw new Error("Falha ao carregar CSV");
+        const text = await response.text();
+        const rows = parseCSV(text);
+        const headers = rows.shift().map(h => normalize(h));
+
+        const idxProduto = headers.findIndex(h => h === "produto");
+        const idxCategoria = headers.findIndex(h => h === "categoria");
+        const idxFoto = headers.findIndex(h => h.includes("link da foto") || h === "foto");
+        const idxDownload = headers.findIndex(h => h.includes("link de download") || h === "download");
+
+        products = rows.map(row => ({
+          produto: row[idxProduto] || "",
+          categoria: row[idxCategoria] || "",
+          foto: row[idxFoto] || "",
+          download: row[idxDownload] || ""
+        })).filter(p => p.produto && p.foto);
+
+        setupCategories();
+        render();
+      } catch (error) {
+        console.error(error);
+        countText.textContent = "Não foi possível carregar os produtos. Verifique se a planilha está publicada em CSV.";
+        emptyStateEl.style.display = "block";
+        emptyStateEl.textContent = "Erro ao carregar catálogo.";
+      }
+    }
+
+    searchInput.addEventListener("input", render);
+    categorySelect.addEventListener("change", render);
+    loadProducts();
+  </script>
+</body>
+</html>
