@@ -287,6 +287,13 @@
       object-fit: contain;
       display: block;
     }
+    .image-placeholder {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      padding: 16px;
+      line-height: 1.35;
+    }
 
     .content {
       padding: 14px;
@@ -566,7 +573,7 @@
         <button id="modalClose" class="modal-close" type="button" aria-label="Fechar">×</button>
       </div>
       <div class="modal-body">
-        <img id="modalImage" src="" alt="" />
+        <img id="modalImage" src="" alt="" referrerpolicy="no-referrer" onerror="handleImageError(this)" />
       </div>
       <div class="modal-actions">
         <a id="modalDownload" class="btn primary" href="#" target="_blank" rel="noopener">⬇ Baixar Foto</a>
@@ -656,6 +663,48 @@
         .replaceAll("'", "&#039;");
     }
 
+    function getDriveFileId(url) {
+      const value = String(url || "");
+      const patterns = [
+        /[?&]id=([^&]+)/,
+        /\/file\/d\/([^/]+)/,
+        /\/d\/([^/]+)/,
+        /open\?id=([^&]+)/
+      ];
+
+      for (const pattern of patterns) {
+        const match = value.match(pattern);
+        if (match && match[1]) return decodeURIComponent(match[1]);
+      }
+
+      return "";
+    }
+
+    function getImageUrl(product) {
+      const id = getDriveFileId(product.foto) || getDriveFileId(product.download);
+      if (id) return `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1000`;
+      return product.foto || product.download || "";
+    }
+
+    function getImageFallbackUrl(product) {
+      const id = getDriveFileId(product.foto) || getDriveFileId(product.download);
+      if (id) return `https://drive.google.com/uc?export=view&id=${encodeURIComponent(id)}`;
+      return product.download || product.foto || "";
+    }
+
+    function handleImageError(img) {
+      if (!img.dataset.triedFallback) {
+        img.dataset.triedFallback = "1";
+        img.src = img.dataset.fallback || img.src;
+        return;
+      }
+
+      const box = img.closest(".photo-box");
+      if (box) {
+        box.innerHTML = '<div class="image-placeholder">Imagem indisponível<br>Use o botão Visualizar ou Baixar Foto</div>';
+      }
+    }
+
     function formatNumber(value) {
       return Number(value || 0).toLocaleString("pt-BR");
     }
@@ -715,7 +764,7 @@
       catalogEl.innerHTML = currentFiltered.map((product, index) => `
         <article class="card">
           <div class="photo-box" data-index="${index}" title="Clique para ampliar">
-            <img src="${escapeHTML(product.foto)}" alt="${escapeHTML(product.produto)}" loading="lazy" onerror="this.style.display='none'" />
+            <img src="${escapeHTML(getImageUrl(product))}" data-fallback="${escapeHTML(getImageFallbackUrl(product))}" alt="${escapeHTML(product.produto)}" loading="lazy" referrerpolicy="no-referrer" onerror="handleImageError(this)" />
           </div>
           <div class="content">
             <div class="product-name">${escapeHTML(product.produto)}</div>
@@ -740,7 +789,9 @@
     function openModal(product) {
       modalTitle.textContent = product.produto;
       modalCategory.textContent = product.categoria;
-      modalImage.src = product.foto;
+      modalImage.src = getImageUrl(product);
+      modalImage.dataset.fallback = getImageFallbackUrl(product);
+      modalImage.dataset.triedFallback = "";
       modalImage.alt = product.produto;
       modalDownload.href = product.download || product.foto;
       modalOpen.href = product.foto;
