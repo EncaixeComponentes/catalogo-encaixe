@@ -3,40 +3,656 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Catálogo de Fotos | Encaixe</title>
+  <title>Catálogo de Fotos | Encaixe Componentes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    :root { --azul:#0B2D5B; --azul-2:#163D73; --amarelo:#FFCC00; --cinza:#f5f7fb; --borda:#e6eaf0; --texto:#111827; --muted:#6b7280; --card:#fff; }
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--cinza);color:var(--texto)}
-    header{background:linear-gradient(135deg,var(--azul),#061a36);color:#fff;padding:32px 18px 78px;text-align:center}.brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--amarelo);color:var(--azul);display:grid;place-items:center;font-weight:900}h1{margin:0;font-size:clamp(30px,4vw,48px);line-height:1.05}.subtitle{margin:10px auto 0;max-width:820px;color:#dbe7ff;font-size:15px}.total-pill{display:inline-flex;margin-top:16px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:8px 15px;border-radius:999px;font-weight:900;font-size:14px}
-    main{max-width:1280px;margin:-42px auto 48px;padding:0 18px}.panel{background:#fff;border:1px solid var(--borda);border-radius:18px;box-shadow:0 12px 30px rgba(11,45,91,.14);padding:18px;margin-bottom:18px}.controls{display:grid;grid-template-columns:minmax(220px,1fr) minmax(180px,280px) 120px;gap:12px;align-items:center}.search-wrap{position:relative}input,select,button{height:48px;border:1px solid var(--borda);border-radius:12px;background:#fff;color:var(--texto);font-size:15px;outline:none}input{width:100%;padding:0 15px 0 44px}select{width:100%;padding:0 14px}button{background:var(--azul);color:#fff;font-weight:900;cursor:pointer}button:hover{background:var(--azul-2)}.search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:18px}.meta{margin-top:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px}.meta strong{color:var(--azul)}
-    .layout{display:grid;grid-template-columns:260px 1fr;gap:18px}.sidebar{background:#fff;border:1px solid var(--borda);border-radius:16px;padding:14px;align-self:start;position:sticky;top:16px}.sidebar-title{font-size:12px;color:var(--muted);font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}.cat-list{display:grid;gap:8px}.cat-btn{height:auto;min-height:38px;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;color:var(--texto);border:1px solid var(--borda);padding:9px 10px;border-radius:10px;font-size:13px;font-weight:800}.cat-btn.active{background:var(--azul);color:#fff;border-color:var(--azul)}.cat-count{opacity:.8;font-weight:900}
-    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.card{background:var(--card);border:1px solid var(--borda);border-radius:16px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.06);display:flex;flex-direction:column;min-height:100%}.photo-box{height:220px;background:#fbfcff;display:flex;align-items:center;justify-content:center;padding:14px;border-bottom:1px solid #f0f2f6}.photo-box img{max-width:100%;max-height:100%;object-fit:contain;display:block}.img-fallback{display:none;text-align:center;color:var(--muted);font-size:13px;line-height:1.35;padding:18px}.content{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}.product-name{font-size:14px;line-height:1.25;font-weight:900;min-height:36px}.category{display:inline-flex;align-self:flex-start;font-size:12px;color:var(--azul);background:#eaf1fb;padding:5px 9px;border-radius:999px;font-weight:800}.btns{display:grid;gap:8px;margin-top:auto}a.btn{display:inline-flex;align-items:center;justify-content:center;min-height:38px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:900;transition:.2s ease}.primary{background:var(--azul);color:#fff}.primary:hover{background:var(--azul-2)}.secondary{background:#fff;color:var(--azul);border:1px solid var(--borda)}.secondary:hover{border-color:var(--azul)}.state{padding:36px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--borda);border-radius:16px}footer{text-align:center;color:var(--muted);font-size:13px;padding:0 18px 34px}
-    @media (max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.layout{grid-template-columns:220px 1fr}}
-    @media (max-width:860px){header{padding-bottom:58px}.controls{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.sidebar{position:static}.cat-list{display:flex;overflow:auto;padding-bottom:4px}.cat-btn{min-width:180px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.photo-box{height:175px}.content{padding:12px}.product-name{font-size:13px;min-height:48px}.panel{padding:14px}}
-    @media (max-width:460px){main{padding:0 12px}.grid{grid-template-columns:1fr}.photo-box{height:250px}.cat-btn{min-width:160px}}
+    :root {
+      --bg: #080e1a;
+      --bg-2: #0d1626;
+      --bg-3: #121e30;
+      --surface: #14203a;
+      --surface-2: #1a2a47;
+      --border: rgba(255,255,255,.07);
+      --border-2: rgba(255,255,255,.13);
+      --gold: #FFB800;
+      --gold-dim: rgba(255,184,0,.15);
+      --gold-glow: rgba(255,184,0,.3);
+      --blue: #4A8FE7;
+      --blue-dim: rgba(74,143,231,.12);
+      --text: #f0f4ff;
+      --text-2: #8899bb;
+      --text-3: #526180;
+      --radius: 14px;
+      --radius-sm: 9px;
+      --card-h: 220px;
+      --shadow: 0 8px 32px rgba(0,0,0,.45);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      padding: 56px 24px 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 900px 500px at 50% -80px, rgba(74,143,231,.22), transparent),
+                  radial-gradient(ellipse 600px 300px at 80% 60%, rgba(255,184,0,.07), transparent);
+      pointer-events: none;
+    }
+    header::after {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+    }
+    .header-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-bottom: 22px;
+    }
+    .brand-mark {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--gold);
+      display: grid; place-items: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 20px;
+      color: var(--bg);
+      box-shadow: 0 0 24px var(--gold-glow);
+    }
+    .brand-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 15px;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-2);
+    }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900;
+      font-size: clamp(38px, 6vw, 72px);
+      line-height: 1;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, #fff 30%, #8aabdd);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 14px;
+    }
+    .subtitle {
+      font-size: 15px; color: var(--text-2); line-height: 1.6;
+      max-width: 540px; margin: 0 auto 22px;
+    }
+    .total-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border-2);
+      padding: 10px 18px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; color: var(--text-2);
+    }
+    .total-badge strong { color: var(--gold); font-weight: 700; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold-glow); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.3 } }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1360px; margin: 0 auto;
+      padding: 0 20px 60px;
+      margin-top: -52px;
+    }
+
+    /* ── SEARCH PANEL ── */
+    .search-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      position: relative; z-index: 10;
+    }
+    .controls-row {
+      display: grid;
+      grid-template-columns: 1fr minmax(180px,260px) 44px;
+      gap: 10px; align-items: center;
+    }
+    .search-wrap { position: relative; }
+    .search-ico {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      color: var(--text-3); font-size: 16px; pointer-events: none;
+    }
+    input[type=search], select {
+      width: 100%; height: 46px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
+      transition: border-color .2s;
+    }
+    input[type=search] { padding: 0 14px 0 42px; }
+    select { padding: 0 12px; appearance: none; cursor: pointer; }
+    input[type=search]:focus, select:focus { border-color: var(--blue); }
+    input[type=search]::placeholder { color: var(--text-3); }
+    .clear-btn {
+      width: 46px; height: 46px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text-3);
+      cursor: pointer; font-size: 18px;
+      display: grid; place-items: center;
+      transition: color .2s, border-color .2s;
+    }
+    .clear-btn:hover { color: var(--gold); border-color: var(--gold); }
+    .meta-row {
+      margin-top: 12px; display: flex;
+      justify-content: space-between; flex-wrap: wrap; gap: 8px;
+      font-size: 12.5px; color: var(--text-3);
+    }
+    .meta-row strong { color: var(--blue); }
+    .source-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--bg-3); border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 6px;
+      font-size: 11.5px;
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 18px; align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 18px;
+      padding: 16px;
+      position: sticky; top: 16px;
+    }
+    .sidebar-title {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 12px;
+    }
+    .cat-list { display: grid; gap: 6px; }
+    .cat-btn {
+      width: 100%; text-align: left;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 11px; border-radius: var(--radius-sm);
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      background: transparent; border: 1px solid transparent;
+      color: var(--text-2); transition: all .15s;
+    }
+    .cat-btn:hover { background: var(--bg-3); color: var(--text); }
+    .cat-btn.active {
+      background: var(--gold-dim); border-color: rgba(255,184,0,.3);
+      color: var(--gold); font-weight: 600;
+    }
+    .cat-pill {
+      font-size: 11px; font-weight: 700;
+      background: var(--bg-3); padding: 2px 7px; border-radius: 999px;
+      color: var(--text-3);
+    }
+    .cat-btn.active .cat-pill { background: rgba(255,184,0,.2); color: var(--gold); }
+
+    /* ── GRID ── */
+    .grid-wrap { min-width: 0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 16px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      animation: fadeUp .3s ease both;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5);
+      border-color: var(--border-2);
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:none } }
+
+    .photo-box {
+      height: var(--card-h);
+      background: var(--bg-3);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px; position: relative; overflow: hidden;
+    }
+    .photo-box::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(8,14,26,.4));
+      pointer-events: none;
+    }
+    .photo-box img {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain; display: block;
+      transition: transform .3s;
+    }
+    .card:hover .photo-box img { transform: scale(1.04); }
+    .img-fallback {
+      display: none; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--text-3); font-size: 13px; text-align: center;
+    }
+    .img-fallback svg { opacity: .3; }
+
+    .card-body {
+      padding: 14px; display: flex; flex-direction: column; gap: 10px; flex: 1;
+    }
+    .prod-name {
+      font-size: 13.5px; font-weight: 600; line-height: 1.35;
+      color: var(--text); min-height: 37px;
+    }
+    .cat-tag {
+      display: inline-flex; align-items: center;
+      align-self: flex-start;
+      font-size: 11px; font-weight: 600;
+      background: var(--blue-dim); color: var(--blue);
+      padding: 4px 9px; border-radius: 999px;
+    }
+    .card-actions { display: grid; gap: 7px; margin-top: auto; }
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      height: 38px; border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: opacity .15s, transform .1s;
+    }
+    .btn:active { transform: scale(.98); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #e8a400 100%);
+      color: #0a0a00;
+    }
+    .btn-primary:hover { opacity: .9; }
+    .btn-secondary {
+      background: var(--bg-3);
+      border: 1px solid var(--border-2);
+      color: var(--text-2);
+    }
+    .btn-secondary:hover { color: var(--text); border-color: var(--border-2); background: var(--surface-2); }
+
+    /* ── STATES ── */
+    .empty-state {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; text-align: center;
+      padding: 80px 24px;
+      background: var(--surface); border: 1px dashed var(--border-2);
+      border-radius: 18px;
+    }
+    .empty-ico { font-size: 42px; opacity: .3; }
+    .empty-state p { color: var(--text-2); font-size: 15px; }
+    .empty-state small { color: var(--text-3); font-size: 13px; }
+
+    .loading-state {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 16px;
+    }
+    .skeleton {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
+      animation: shimmer 1.6s infinite;
+    }
+    .skeleton-img { height: var(--card-h); background: var(--bg-3); }
+    .skeleton-body { padding: 14px; display: grid; gap: 10px; }
+    .skeleton-line {
+      height: 12px; border-radius: 6px;
+      background: linear-gradient(90deg, var(--bg-3) 25%, var(--surface-2) 50%, var(--bg-3) 75%);
+      background-size: 200% 100%;
+      animation: shimmer-line 1.6s infinite;
+    }
+    .skeleton-line.short { width: 60%; }
+    @keyframes shimmer { 0%,100% { opacity:.6 } 50% { opacity:1 } }
+    @keyframes shimmer-line { from { background-position: 200% 0 } to { background-position: -200% 0 } }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 0 20px 40px;
+      color: var(--text-3); font-size: 12.5px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px; margin-top: -12px;
+    }
+    footer a { color: var(--text-3); text-decoration: none; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-2); }
+    ::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 3px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:1200px) {
+      .grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .loading-state { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    }
+    @media (max-width:900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .cat-list { display: flex; overflow-x: auto; padding-bottom: 4px; gap: 6px; }
+      .cat-btn { min-width: 150px; flex-shrink: 0; }
+      .grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+      .loading-state { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      header { padding-bottom: 80px; }
+      h1 { font-size: clamp(32px,8vw,56px); }
+    }
+    @media (max-width:600px) {
+      .controls-row { grid-template-columns: 1fr 44px; }
+      .controls-row select { display: none; }
+      main { padding: 0 14px 48px; }
+      header { padding: 42px 16px 72px; }
+    }
+    @media (max-width:420px) {
+      .grid { grid-template-columns: 1fr; }
+      .loading-state { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-  <header><div class="brand"><span class="brand-mark">E</span><span>Encaixe Componentes</span></div><h1>Catálogo de Fotos</h1><p class="subtitle">Busca interna para vendedores encontrarem, visualizarem e baixarem fotos dos produtos com rapidez.</p><div id="totalProdutos" class="total-pill">Carregando...</div></header>
-  <main><section class="panel"><div class="controls"><div class="search-wrap"><span class="search-icon">⌕</span><input id="searchInput" type="search" placeholder="Pesquisar produto ou categoria..." autocomplete="off" /></div><select id="categorySelect"><option value="">Todas as categorias</option></select><button id="clearFilters" type="button">Limpar</button></div><div class="meta"><span id="countText">Carregando produtos...</span><span>Fonte: <strong>Google Sheets + Google Drive</strong></span></div></section><section class="layout"><aside class="sidebar"><div class="sidebar-title">Categorias</div><div id="categoryButtons" class="cat-list"></div></aside><section><div id="catalog" class="grid"></div><div id="emptyState" class="state" style="display:none;">Nenhum produto encontrado.</div></section></section></main><footer>Catálogo interno Encaixe • Atualizado automaticamente pela planilha publicada.</footer>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-mark">E</span>
+      <span class="brand-name">Encaixe Componentes</span>
+    </div>
+    <h1>Catálogo de Fotos</h1>
+    <p class="subtitle">Encontre, visualize e baixe fotos dos produtos com rapidez. Busca por nome ou categoria, com acesso direto ao Google Drive.</p>
+    <div id="totalBadge" class="total-badge">
+      <span class="dot"></span>
+      <span>Carregando catálogo...</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="search-panel">
+    <div class="controls-row">
+      <div class="search-wrap">
+        <span class="search-ico">⌕</span>
+        <input id="searchInput" type="search" placeholder="Buscar produto ou categoria..." autocomplete="off" />
+      </div>
+      <select id="categorySelect">
+        <option value="">Todas as categorias</option>
+      </select>
+      <button class="clear-btn" id="clearBtn" title="Limpar filtros" type="button">✕</button>
+    </div>
+    <div class="meta-row">
+      <span id="countText">Aguardando...</span>
+      <span class="source-tag">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Google Sheets + Google Drive
+      </span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Filtrar por categoria</div>
+      <div id="catList" class="cat-list">
+        <!-- populated by JS -->
+      </div>
+    </aside>
+
+    <div class="grid-wrap">
+      <div id="loadingState" class="loading-state">
+        <!-- skeleton cards -->
+        <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+        <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+        <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+        <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></div>
+      </div>
+      <div id="catalog" class="grid" style="display:none;"></div>
+      <div id="emptyState" class="empty-state" style="display:none;">
+        <div class="empty-ico">🔍</div>
+        <p>Nenhum produto encontrado</p>
+        <small>Tente outros termos ou limpe os filtros</small>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Catálogo interno Encaixe — atualizado automaticamente pela planilha publicada.<br>
+  <span style="opacity:.5;margin-top:4px;display:block;">Fonte: <a href="#">Google Sheets</a> · Imagens: Google Drive</span>
+</footer>
+
 <script>
-const CSV_URL="/api/produtos";
-const catalogEl=document.getElementById("catalog"),emptyStateEl=document.getElementById("emptyState"),searchInput=document.getElementById("searchInput"),categorySelect=document.getElementById("categorySelect"),countText=document.getElementById("countText"),totalProdutos=document.getElementById("totalProdutos"),clearFilters=document.getElementById("clearFilters"),categoryButtons=document.getElementById("categoryButtons");
-let products=[],selectedCategory="";
-function parseCSV(text){const rows=[];let current=[],value="",insideQuotes=false;for(let i=0;i<text.length;i++){const char=text[i],next=text[i+1];if(char==='"'&&insideQuotes&&next==='"'){value+='"';i++}else if(char==='"'){insideQuotes=!insideQuotes}else if(char===','&&!insideQuotes){current.push(value);value=""}else if((char==='\n'||char==='\r')&&!insideQuotes){if(char==='\r'&&next==='\n')i++;current.push(value);rows.push(current);current=[];value=""}else value+=char}if(value||current.length){current.push(value);rows.push(current)}return rows.filter(row=>row.some(cell=>String(cell).trim()!==""))}
-function normalize(value){return String(value||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim()}
-function escapeHTML(value){return String(value||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function getDriveId(url){const s=String(url||"");let m=s.match(/[?&]id=([^&]+)/);if(m)return m[1];m=s.match(/\/d\/([^/]+)/);if(m)return m[1];m=s.match(/open\?id=([^&]+)/);if(m)return m[1];return ""}
-function imageUrl(product){const id=getDriveId(product.foto)||getDriveId(product.download);return id?`/api/imagem?id=${encodeURIComponent(id)}&w=1000`:product.foto}
-function viewUrl(product){const id=getDriveId(product.foto)||getDriveId(product.download);return id?`https://drive.google.com/file/d/${id}/view`:product.foto}
-function downloadUrl(product){return product.download||product.foto||viewUrl(product)}
-function categoryCounts(){const map=new Map();products.forEach(p=>map.set(p.categoria,(map.get(p.categoria)||0)+1));return [...map.entries()].sort((a,b)=>a[0].localeCompare(b[0],"pt-BR"))}
-function setupCategories(){const cats=categoryCounts();categorySelect.innerHTML='<option value="">Todas as categorias</option>'+cats.map(([cat,total])=>`<option value="${escapeHTML(cat)}">${escapeHTML(cat)} (${total})</option>`).join("");renderCategoryButtons(cats)}
-function renderCategoryButtons(cats=categoryCounts()){categoryButtons.innerHTML=`<button class="cat-btn ${!selectedCategory?'active':''}" data-cat=""><span>Todas</span><span class="cat-count">${products.length}</span></button>`+cats.map(([cat,total])=>`<button class="cat-btn ${selectedCategory===cat?'active':''}" data-cat="${escapeHTML(cat)}"><span>${escapeHTML(cat)}</span><span class="cat-count">${total}</span></button>`).join("")}
-function setCategory(cat){selectedCategory=cat||"";categorySelect.value=selectedCategory;renderCategoryButtons();render()}
-function render(){const term=normalize(searchInput.value),category=selectedCategory;const filtered=products.filter(product=>{const matchesTerm=!term||normalize(product.produto).includes(term)||normalize(product.categoria).includes(term);const matchesCategory=!category||product.categoria===category;return matchesTerm&&matchesCategory});countText.innerHTML=`<strong>${filtered.length.toLocaleString("pt-BR")}</strong> de ${products.length.toLocaleString("pt-BR")} produtos encontrados`;emptyStateEl.style.display=filtered.length?"none":"block";catalogEl.innerHTML=filtered.map(product=>{const img=imageUrl(product),view=viewUrl(product),down=downloadUrl(product);return `<article class="card"><div class="photo-box"><img src="${escapeHTML(img)}" alt="${escapeHTML(product.produto)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" /><div class="img-fallback">Imagem indisponível<br>Use o botão Visualizar ou Baixar Foto</div></div><div class="content"><div class="product-name">${escapeHTML(product.produto)}</div><div class="category">${escapeHTML(product.categoria)}</div><div class="btns"><a class="btn primary" href="${escapeHTML(down)}" target="_blank" rel="noopener">⬇ Baixar Foto</a><a class="btn secondary" href="${escapeHTML(view)}" target="_blank" rel="noopener">Visualizar</a></div></div></article>`}).join("")}
-async function loadProducts(){try{const response=await fetch(CSV_URL+"?cacheBust="+Date.now());if(!response.ok)throw new Error("Falha ao carregar CSV");const text=await response.text();const rows=parseCSV(text);const headers=rows.shift().map(h=>normalize(h));const idxProduto=headers.findIndex(h=>h==="produto"),idxCategoria=headers.findIndex(h=>h==="categoria"),idxFoto=headers.findIndex(h=>h.includes("link da foto")||h==="foto"),idxDownload=headers.findIndex(h=>h.includes("link de download")||h==="download");products=rows.map(row=>({produto:row[idxProduto]||"",categoria:row[idxCategoria]||"",foto:row[idxFoto]||"",download:row[idxDownload]||""})).filter(p=>p.produto&&(p.foto||p.download));totalProdutos.textContent=`${products.length.toLocaleString("pt-BR")} produtos cadastrados`;setupCategories();render()}catch(error){console.error(error);totalProdutos.textContent="Erro ao carregar";countText.textContent="Não foi possível carregar os produtos. Verifique a API /api/produtos.";emptyStateEl.style.display="block";emptyStateEl.textContent="Erro ao carregar catálogo."}}
-searchInput.addEventListener("input",render);categorySelect.addEventListener("change",e=>setCategory(e.target.value));clearFilters.addEventListener("click",()=>{searchInput.value="";setCategory("")});categoryButtons.addEventListener("click",e=>{const btn=e.target.closest(".cat-btn");if(btn)setCategory(btn.dataset.cat||"")});loadProducts();
+(function () {
+  "use strict";
+
+  /* ── CONFIG ── */
+  const CSV_URL = "/api/produtos";
+  const IMG_URL = (id, w) => `/api/imagem?id=${encodeURIComponent(id)}&w=${w}`;
+
+  /* ── STATE ── */
+  let products = [];
+  let activeCat = "";
+  let renderTimer = null;
+
+  /* ── ELEMENTS ── */
+  const $ = id => document.getElementById(id);
+  const catalogEl     = $("catalog");
+  const loadingEl     = $("loadingState");
+  const emptyEl       = $("emptyState");
+  const searchInput   = $("searchInput");
+  const categorySelect= $("categorySelect");
+  const countText     = $("countText");
+  const totalBadge    = $("totalBadge");
+  const clearBtn      = $("clearBtn");
+  const catList       = $("catList");
+
+  /* ── UTILS ── */
+  function normalize(v) {
+    return String(v ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  }
+  function esc(v) {
+    return String(v ?? "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function getDriveId(url) {
+    const s = String(url ?? "");
+    let m = s.match(/\/d\/([^/?#]+)/);
+    if (m) return m[1];
+    m = s.match(/[?&]id=([^&]+)/);
+    if (m) return m[1];
+    return "";
+  }
+
+  function prodImageUrl(p) {
+    const id = getDriveId(p.foto) || getDriveId(p.download);
+    return id ? IMG_URL(id, 800) : p.foto;
+  }
+  function prodViewUrl(p) {
+    const id = getDriveId(p.foto) || getDriveId(p.download);
+    return id ? `https://drive.google.com/file/d/${id}/view` : p.foto;
+  }
+  function prodDownloadUrl(p) {
+    const id = getDriveId(p.foto) || getDriveId(p.download);
+    return id ? `https://drive.google.com/uc?export=download&id=${id}` : (p.download || p.foto);
+  }
+
+  /* ── CSV PARSER ── */
+  function parseCSV(text) {
+    const rows = [];
+    let row = [], val = "", inQ = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i], n = text[i + 1];
+      if (c === '"' && inQ && n === '"') { val += '"'; i++; }
+      else if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { row.push(val); val = ""; }
+      else if ((c === '\n' || c === '\r') && !inQ) {
+        if (c === '\r' && n === '\n') i++;
+        row.push(val); rows.push(row); row = []; val = "";
+      } else val += c;
+    }
+    if (val || row.length) { row.push(val); rows.push(row); }
+    return rows.filter(r => r.some(c => c.trim() !== ""));
+  }
+
+  /* ── CATEGORIES ── */
+  function catCounts() {
+    const map = new Map();
+    products.forEach(p => map.set(p.categoria, (map.get(p.categoria) || 0) + 1));
+    return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0], "pt-BR"));
+  }
+
+  function buildCategoryUI() {
+    const cats = catCounts();
+
+    // select dropdown
+    categorySelect.innerHTML = '<option value="">Todas as categorias</option>' +
+      cats.map(([c, n]) => `<option value="${esc(c)}">${esc(c)} (${n})</option>`).join("");
+
+    // sidebar buttons
+    catList.innerHTML =
+      `<button class="cat-btn ${!activeCat ? 'active' : ''}" data-cat="">
+         <span>Todas</span><span class="cat-pill">${products.length}</span>
+       </button>` +
+      cats.map(([c, n]) =>
+        `<button class="cat-btn ${activeCat === c ? 'active' : ''}" data-cat="${esc(c)}">
+           <span>${esc(c)}</span><span class="cat-pill">${n}</span>
+         </button>`
+      ).join("");
+  }
+
+  function selectCategory(cat) {
+    activeCat = cat ?? "";
+    categorySelect.value = activeCat;
+    buildCategoryUI();
+    render();
+  }
+
+  /* ── RENDER ── */
+  function render() {
+    const term = normalize(searchInput.value);
+    const filtered = products.filter(p => {
+      if (activeCat && p.categoria !== activeCat) return false;
+      if (term && !normalize(p.produto).includes(term) && !normalize(p.categoria).includes(term)) return false;
+      return true;
+    });
+
+    countText.innerHTML = `<strong>${filtered.length.toLocaleString("pt-BR")}</strong> de ${products.length.toLocaleString("pt-BR")} produtos`;
+
+    if (!filtered.length) {
+      catalogEl.style.display = "none";
+      emptyEl.style.display = "flex";
+      return;
+    }
+
+    emptyEl.style.display = "none";
+    catalogEl.style.display = "grid";
+
+    catalogEl.innerHTML = filtered.map((p, i) => {
+      const img  = esc(prodImageUrl(p));
+      const view = esc(prodViewUrl(p));
+      const down = esc(prodDownloadUrl(p));
+      const delay = Math.min(i * 30, 400);
+      return `
+        <article class="card" style="animation-delay:${delay}ms">
+          <div class="photo-box">
+            <img src="${img}" alt="${esc(p.produto)}" loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+            <div class="img-fallback">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="m21 15-5-5L5 21"/>
+              </svg>
+              Imagem indisponível
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="prod-name">${esc(p.produto)}</div>
+            <div class="cat-tag">${esc(p.categoria)}</div>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="${down}" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Baixar Foto
+              </a>
+              <a class="btn btn-secondary" href="${view}" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Visualizar
+              </a>
+            </div>
+          </div>
+        </article>`;
+    }).join("");
+  }
+
+  function debouncedRender() {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(render, 160);
+  }
+
+  /* ── LOAD ── */
+  async function loadProducts() {
+    try {
+      const res = await fetch(`${CSV_URL}?t=${Date.now()}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      const rows = parseCSV(text);
+      const headers = rows.shift().map(h => normalize(h));
+
+      const idx = {
+        produto:   headers.findIndex(h => h === "produto"),
+        categoria: headers.findIndex(h => h === "categoria"),
+        foto:      headers.findIndex(h => h.includes("link da foto") || h === "foto"),
+        download:  headers.findIndex(h => h.includes("link de download") || h === "download"),
+      };
+
+      products = rows
+        .map(r => ({
+          produto:   (r[idx.produto]   ?? "").trim(),
+          categoria: (r[idx.categoria] ?? "").trim(),
+          foto:      (r[idx.foto]      ?? "").trim(),
+          download:  (r[idx.download]  ?? "").trim(),
+        }))
+        .filter(p => p.produto && (p.foto || p.download));
+
+      totalBadge.innerHTML = `<span class="dot"></span><strong>${products.length.toLocaleString("pt-BR")}</strong> produtos cadastrados`;
+      buildCategoryUI();
+      loadingEl.style.display = "none";
+      render();
+
+    } catch (err) {
+      console.error("Erro ao carregar catálogo:", err);
+      loadingEl.style.display = "none";
+      totalBadge.innerHTML = `<span style="color:#ff6b6b">⚠ Erro ao carregar</span>`;
+      countText.textContent = "Não foi possível carregar. Verifique a rota /api/produtos.";
+      emptyEl.style.display = "flex";
+      emptyEl.querySelector("p").textContent = "Erro ao conectar ao catálogo";
+    }
+  }
+
+  /* ── EVENTS ── */
+  searchInput.addEventListener("input", debouncedRender);
+  categorySelect.addEventListener("change", e => selectCategory(e.target.value));
+  clearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    selectCategory("");
+  });
+  catList.addEventListener("click", e => {
+    const btn = e.target.closest(".cat-btn");
+    if (btn) selectCategory(btn.dataset.cat ?? "");
+  });
+
+  loadProducts();
+})();
 </script>
 </body>
 </html>
