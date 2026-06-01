@@ -216,7 +216,7 @@
   <footer>Catálogo interno Encaixe • Atualizado automaticamente pela planilha publicada.</footer>
 
   <script>
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSm473znFyIRUn-6ge-W2FALIro2XCrc02K7v9vOx1zkk0wh_jyT4gqCGS-GDFgTOAy-l0uc-Rxcc7N/pub?gid=0&single=true&output=csv";
+    const CSV_URL = "/api/produtos";
 
     const catalogEl = document.getElementById("catalog");
     const emptyStateEl = document.getElementById("emptyState");
@@ -315,7 +315,7 @@
 
     async function loadProducts() {
       try {
-        const response = await fetch(CSV_URL + "&cacheBust=" + Date.now());
+        const response = await fetch(CSV_URL + "?cacheBust=" + Date.now());
         if (!response.ok) throw new Error("Falha ao carregar CSV");
         const text = await response.text();
         const rows = parseCSV(text);
